@@ -1,12 +1,16 @@
 import streamlit as st
 import requests
 import json
+from dotenv import load_dotenv
+import os
 
-# Configurações da API
+# Carrega as variaveis de ambiente do .env
+load_dotenv()
+
 if 'config' not in st.session_state:
     st.session_state.config = {
-        'BASE_URL': 'http://localhost:3001/api/v1',
-        'CHAVE_API': 'HWYWS62-9A6MGC8-NWXR0DB-CBK5VA5'
+        'BASE_URL': os.getenv('BASE_URL', 'http://localhost:3001/api/v1'),
+        'CHAVE_API': os.getenv('CHAVE_API', '')
     }
 
 # Funções para interagir com a API
@@ -60,7 +64,7 @@ with st.sidebar:
         st.error("Não foi possível obter a lista de workspaces.")
 
 # Área principal
-col1, col2 = st.columns(2)
+col1 = st.columns(1)[0]
 
 with col1:
     st.subheader("Chat com IA")
